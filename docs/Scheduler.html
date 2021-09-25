@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>lupro_scheduler.Scheduler API documentation</title>
+<meta name="description" content="调度器" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>lupro_scheduler.Scheduler</code></h1>
+</header>
+<section id="section-intro">
+<p>调度器</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#39;&#39;&#39;调度器&#39;&#39;&#39;
+
+from .Process import ProcessPool
+from .Thread import ThreadMap, ThreadPool, Thread
+from .Asyncio import Gevent, Asyncio
+from .typing import Union, Callable, RunCalculation, RunIOintensive, RunTask
+from .Communication import broadcast, Processbroadcast, asyncbroadcast, Lock
+from .publictool import tasksequence, dict_slice, taskmethodput
+import asyncio
+from queue import Empty
+import time
+
+# 计算密集型
+class Calculation(ProcessPool):
+    &#39;&#39;&#39;计算密集型&#39;&#39;&#39;
+
+    Preferred : RunCalculation = RunCalculation.APPLYASYNC
+    &#39;&#39;&#39;`Calculation` default `method`&#39;&#39;&#39;
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[]):
+        super().__init__(func, *args, kwargs=kwargs)
+
+    def run(self, method : Union[int, RunCalculation] = None, *args, **kwargs):
+        &#39;&#39;&#39; 运行 `Calculation` 计算型密集型实例
+
+        Args:
+            `method` : `Union[int, RunCalculation]` 执行方法
+            `args` : `tuple` ProcessPool args
+            `kwargs` : `dict` ProcessPool kwargs
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method:
+            if isinstance(method, int):
+                value = method
+            else:
+                value = method.value
+        else:
+            if isinstance(Calculation.Preferred, int):
+                value = Calculation.Preferred
+            else:
+                value = Calculation.Preferred.value
+        if value == 0 or value == RunCalculation.APPLY:
+            return self.apply(*args, **kwargs)
+        elif value == 1 or value == RunCalculation.APPLYASYNC:
+            return self.apply_async(*args, **kwargs)
+        elif value == 2 or value == RunCalculation.MAP:
+            return self.map(*args, **kwargs)
+        elif value == 3 or value == RunCalculation.MAPASYNC:
+            return self.map_async(*args, **kwargs)
+        elif value == 4 or value == RunCalculation.EXECUTOR:
+            return self.Executor(*args, **kwargs)
+        else:
+            raise TypeError(
+                f&#34;Calculation.Preferred({Calculation.Preferred}) or Calculation.run.method({method}) not in Enum RunCalculation!&#34;)
+
+# IO密集型
+class IOintensive():
+    &#39;&#39;&#39;IO密集型&#39;&#39;&#39;
+
+    Preferred = RunIOintensive.RunThreadMap_MAP
+    &#39;&#39;&#39;`IOintensive` default `method`&#39;&#39;&#39;
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[]):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def run(self, method : Union[int, RunIOintensive] = None, *args, **kwargs):
+        &#39;&#39;&#39; 运行 `IOintensive` IO型密集型实例
+
+        Args:
+            `method` : `Union[int, RunIOintensive]` 执行方法
+            `args` : `tuple` ProcessPool args
+            `kwargs` : `dict` ProcessPool kwargs
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method:
+            if isinstance(method, int):
+                value = method
+            else:
+                value = method.value
+        else:
+            if isinstance(IOintensive.Preferred, int):
+                value = IOintensive.Preferred
+            else:
+                value = IOintensive.Preferred.value
+        if value &lt; 20:
+            return Asyncio(self.func, *self.args, kwargs = self.kwargs).run(value - 10)
+        elif value &lt; 30:
+            return ThreadMap(self.func, *self.args, kwargs = self.kwargs).run(value - 20)
+        elif value &lt; 40:
+            return ThreadPool(self.func, *self.args, kwargs = self.kwargs).run(value - 30)
+        elif value &lt; 50:
+            return Gevent(self.func, *self.args, kwargs = self.kwargs).run(value - 40)
+        else:
+            raise TypeError(
+                f&#34;IOintensive.Preferred({Calculation.Preferred}) or IOintensive.run.method({method}) not in Enum RunIOintensive!&#34;)
+
+# 任务
+class Task:
+
+    Calculation = Calculation
+
+    IOintensive = IOintensive
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[], method : Union[int, RunTask] = None):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+        self.runm = taskmethodput(method)
+        self.method = method
+    
+    def run(self, method : Union[int, RunTask] = None):
+        &#39;&#39;&#39; 运行 `Task` 任务实例
+
+        Args:
+            `method` : `Union[int, RunTask]` 执行方法 可重载实例化时的 `method`
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method == None:
+            method = self.method
+            if method == None:
+                raise TypeError(f&#39;Task({self}) method is None&#39;)
+            task = getattr(Task, self.runm)(self.func,*self.args, kwargs = self.kwargs)
+        else:
+            task = getattr(Task, taskmethodput(method))(self.func,*self.args, kwargs = self.kwargs)
+
+        return task.run(method)
+
+    @staticmethod
+    def threads(func, *args, **kwargs):
+        &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+        task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+        task.start()
+        return task
+
+    def length(self):
+        return tasksequence(self.func, self.args, self.kwargs)
+    
+# 调度器  
+class Scheduler():
+    &#39;&#39;&#39;调度器 &#39;&#39;&#39;
+    
+    Calculation = Calculation
+
+    IOintensive = IOintensive
+
+    def __init__(self):
+        self.tasks = []     # 任务链
+        self.sequence = 0   # 任务链长度
+        self.length = 0     # 任务数
+        self.lock = []      # 通讯锁
+        self.medium = []    # 通讯链路
+        self.waits = []     # 中继器线程
+        self.results = []   # 任务链结果
+    
+    def addIO(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunIOintensive] = None):
+        &#39;&#39;&#39; 添加 `IOintensive` 型任务
+
+        Args:
+            `func` : Union[list, Callable] 任务函数
+            `args` : `tuple` 任务位置参数
+            `kwargs` : `dict` 任务关键字参数
+            `method` : `Union[int, RunIOintensive]` 执行方法 可重载IOintensive.Preferred的 `method`
+        
+        Returns:
+            None 
+        &#39;&#39;&#39;
+        if method == None:
+            method = IOintensive.Preferred
+        else:
+            if not taskmethodput(method)==&#39;IOintensive&#39;:
+                raise TypeError(
+                    f&#34;Task.method({method}) not in Enum RunIOintensive!&#34;)
+        if self.tasks:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        else:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+            self.length = tasksequence(func, args, kwargs)
+
+    def addCal(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunCalculation] = None):
+        &#39;&#39;&#39; 添加 `Calculation` 型任务
+
+        Args:
+            `func` : Union[list, Callable] 任务函数
+            `args` : `tuple` 任务位置参数
+            `kwargs` : `dict` 任务关键字参数
+            `method` : `Union[int, RunTask]` 执行方法 可重载Calculation.Preferred的 `method`
+        
+        Returns:
+            None 
+        &#39;&#39;&#39;
+        if method == None:
+            method = Calculation.Preferred
+        else:
+            if not taskmethodput(method)==&#39;Calculation&#39;:
+                raise TypeError(
+                    f&#34;Task.method({method}) not in Enum RunCalculation!&#34;)
+        if self.tasks:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        else:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+            self.length = tasksequence(func, args, kwargs)
+    
+    def run(self, join : bool = True):
+        &#39;&#39;&#39; 运行 `Scheduler` 实例
+
+        Args:
+            `join` : bool 是否等待调度，当有 `Calculation` 任务时不可不等待
+        
+        Returns:
+            List : 返回有序的调度任务结果
+        &#39;&#39;&#39;
+        if self.tasks:
+            self.sequence = len(self.tasks)
+            self.lock = Lock.get_lock(self.tasks, join)
+            self.medium = [{} for _ in range(self.sequence)]
+
+            # 序列参数添加 与 通讯装饰器增加
+            for i,j in enumerate(self.tasks):
+                if isinstance(j.func, list):
+                    if asyncio.iscoroutinefunction(j.func[0]):
+                        j.func = [asyncbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                    else:
+                        if j.runm == &#39;Calculation&#39;:
+                            j.func = [Processbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                        else:
+                            j.func = [broadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                else:
+                    if asyncio.iscoroutinefunction(j.func):
+                        j.func = asyncbroadcast(j.func, self.lock[i], self.medium[i])
+                    else:
+                        if j.runm == &#39;Calculation&#39;:
+                            j.func = Processbroadcast(j.func, self.lock[i], self.medium[i])
+                        else:
+                            j.func = broadcast(j.func, self.lock[i], self.medium[i])
+                if i==0:
+                    j.args = tuple([list(range(self.length))] + list(j.args))
+
+            # 初始任务
+            for i,j in enumerate(self.tasks):
+                if i==0:
+                    task0 = getattr(Scheduler, j.runm)(j.func, *j.args,kwargs = j.kwargs)
+                    self.threads(task0.run, j.method)
+                if i &lt; self.sequence - 1:
+                    if self.tasks[i].runm == &#39;Calculation&#39;:
+                        self.waits.append(self.threads(self.CalRepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+                    else:
+                        self.waits.append(self.threads(self.IORepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+                else:
+                    self.waits.append(self.threads(self.Interrupt, j, self.length, self.lock[i], self.medium[i]))
+
+        else:
+            raise TypeError(&#34;Scheduler tasks is null!&#34;)
+        if join:
+            self.wait()
+            for i in self.medium:
+                self.results.append(list(map(lambda x:x[1], sorted(i.items(), key=lambda x:x[0]))))
+            return self.results
+    
+    def IORepeater(self, task, l, lock, medium):
+        &#39;&#39;&#39;线程 中继器&#39;&#39;&#39;
+        i = 0
+        while i&lt;l:
+            with lock:
+                a = len(medium)
+                if a &gt; i:
+                    res = dict_slice(medium, i, a)
+                    i = a
+                    task.args = (list(res.keys()), list(res.values()))
+                    task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                    self.threads(task0.run, task.method)
+            time.sleep(0.1)
+
+    def CalRepeater(self, task, l, lock, medium):
+        &#39;&#39;&#39;进程 中继器&#39;&#39;&#39;
+        i = 0
+        while i&lt;l:
+            while True:
+                try:
+                    medium.update(lock.get(timeout = 0.1))
+                except Empty:
+                    a = len(medium)
+                    if a &gt; i:
+                        res = dict_slice(medium, i, a)
+                        i = a
+                        task.args = (list(res.keys()), list(res.values()))
+                        task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                        self.threads(task0.run, task.method)
+                break
+            time.sleep(0.1)
+
+    def Interrupt(self, task, l, lock, medium):
+        &#39;&#39;&#39;Scheduler 调度完结监听器&#39;&#39;&#39;
+        if task.runm == &#39;Calculation&#39;:
+            i = 0
+            while i&lt;l:
+                while True:
+                    try:
+                        medium.update(lock.get(timeout = 0.1))
+                    except Empty:
+                        a = len(medium)
+                        if a &gt; i:
+                            i = a
+                    break
+                time.sleep(0.1)
+        else:
+            i = 0
+            while i&lt;l:
+                with lock:
+                    a = len(medium)
+                    if a &gt; i:
+                        i = a
+                time.sleep(0.1)
+
+    def wait(self):
+        for i in self.waits:
+            i.join()
+
+    @staticmethod
+    def threads(func, *args, **kwargs):
+        &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+        task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+        task.start()
+        return task</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Calculation"><code class="flex name class">
+<span>class <span class="ident">Calculation</span></span>
+<span>(</span><span>func: Union[list, Callable], *args, kwargs=[])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>计算密集型</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Calculation(ProcessPool):
+    &#39;&#39;&#39;计算密集型&#39;&#39;&#39;
+
+    Preferred : RunCalculation = RunCalculation.APPLYASYNC
+    &#39;&#39;&#39;`Calculation` default `method`&#39;&#39;&#39;
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[]):
+        super().__init__(func, *args, kwargs=kwargs)
+
+    def run(self, method : Union[int, RunCalculation] = None, *args, **kwargs):
+        &#39;&#39;&#39; 运行 `Calculation` 计算型密集型实例
+
+        Args:
+            `method` : `Union[int, RunCalculation]` 执行方法
+            `args` : `tuple` ProcessPool args
+            `kwargs` : `dict` ProcessPool kwargs
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method:
+            if isinstance(method, int):
+                value = method
+            else:
+                value = method.value
+        else:
+            if isinstance(Calculation.Preferred, int):
+                value = Calculation.Preferred
+            else:
+                value = Calculation.Preferred.value
+        if value == 0 or value == RunCalculation.APPLY:
+            return self.apply(*args, **kwargs)
+        elif value == 1 or value == RunCalculation.APPLYASYNC:
+            return self.apply_async(*args, **kwargs)
+        elif value == 2 or value == RunCalculation.MAP:
+            return self.map(*args, **kwargs)
+        elif value == 3 or value == RunCalculation.MAPASYNC:
+            return self.map_async(*args, **kwargs)
+        elif value == 4 or value == RunCalculation.EXECUTOR:
+            return self.Executor(*args, **kwargs)
+        else:
+            raise TypeError(
+                f&#34;Calculation.Preferred({Calculation.Preferred}) or Calculation.run.method({method}) not in Enum RunCalculation!&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="lupro_scheduler.Process.ProcessPool" href="Process.html#lupro_scheduler.Process.ProcessPool">ProcessPool</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Calculation.Preferred"><code class="name">var <span class="ident">Preferred</span> : <a title="lupro_scheduler.typing.RunCalculation" href="typing.html#lupro_scheduler.typing.RunCalculation">RunCalculation</a></code></dt>
+<dd>
+<div class="desc"><p><code><a title="lupro_scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Calculation">Calculation</a></code> default <code>method</code></p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Calculation.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, method: Union[int, lupro_scheduler.RunCalculation] = None, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>运行 <code><a title="lupro_scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Calculation">Calculation</a></code> 计算型密集型实例</p>
+<h2 id="args">Args</h2>
+<p><code>method</code> : <code>Union[int, RunCalculation]</code> 执行方法
+<code>args</code> : <code>tuple</code> ProcessPool args
+<code>kwargs</code> : <code>dict</code> ProcessPool kwargs</p>
+<h2 id="returns">Returns</h2>
+<p><code>List</code> : 任务返回值列表</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self, method : Union[int, RunCalculation] = None, *args, **kwargs):
+    &#39;&#39;&#39; 运行 `Calculation` 计算型密集型实例
+
+    Args:
+        `method` : `Union[int, RunCalculation]` 执行方法
+        `args` : `tuple` ProcessPool args
+        `kwargs` : `dict` ProcessPool kwargs
+    
+    Returns:
+        `List` : 任务返回值列表
+    &#39;&#39;&#39;
+    if method:
+        if isinstance(method, int):
+            value = method
+        else:
+            value = method.value
+    else:
+        if isinstance(Calculation.Preferred, int):
+            value = Calculation.Preferred
+        else:
+            value = Calculation.Preferred.value
+    if value == 0 or value == RunCalculation.APPLY:
+        return self.apply(*args, **kwargs)
+    elif value == 1 or value == RunCalculation.APPLYASYNC:
+        return self.apply_async(*args, **kwargs)
+    elif value == 2 or value == RunCalculation.MAP:
+        return self.map(*args, **kwargs)
+    elif value == 3 or value == RunCalculation.MAPASYNC:
+        return self.map_async(*args, **kwargs)
+    elif value == 4 or value == RunCalculation.EXECUTOR:
+        return self.Executor(*args, **kwargs)
+    else:
+        raise TypeError(
+            f&#34;Calculation.Preferred({Calculation.Preferred}) or Calculation.run.method({method}) not in Enum RunCalculation!&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="lupro_scheduler.Process.ProcessPool" href="Process.html#lupro_scheduler.Process.ProcessPool">ProcessPool</a></b></code>:
+<ul class="hlist">
+<li><code><a title="lupro_scheduler.Process.ProcessPool.Executor" href="Process.html#lupro_scheduler.Process.ProcessPool.Executor">Executor</a></code></li>
+<li><code><a title="lupro_scheduler.Process.ProcessPool.apply" href="Process.html#lupro_scheduler.Process.ProcessPool.apply">apply</a></code></li>
+<li><code><a title="lupro_scheduler.Process.ProcessPool.apply_async" href="Process.html#lupro_scheduler.Process.ProcessPool.apply_async">apply_async</a></code></li>
+<li><code><a title="lupro_scheduler.Process.ProcessPool.map" href="Process.html#lupro_scheduler.Process.ProcessPool.map">map</a></code></li>
+<li><code><a title="lupro_scheduler.Process.ProcessPool.map_async" href="Process.html#lupro_scheduler.Process.ProcessPool.map_async">map_async</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="lupro_scheduler.Scheduler.IOintensive"><code class="flex name class">
+<span>class <span class="ident">IOintensive</span></span>
+<span>(</span><span>func: Union[list, Callable], *args, kwargs=[])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>IO密集型</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IOintensive():
+    &#39;&#39;&#39;IO密集型&#39;&#39;&#39;
+
+    Preferred = RunIOintensive.RunThreadMap_MAP
+    &#39;&#39;&#39;`IOintensive` default `method`&#39;&#39;&#39;
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[]):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def run(self, method : Union[int, RunIOintensive] = None, *args, **kwargs):
+        &#39;&#39;&#39; 运行 `IOintensive` IO型密集型实例
+
+        Args:
+            `method` : `Union[int, RunIOintensive]` 执行方法
+            `args` : `tuple` ProcessPool args
+            `kwargs` : `dict` ProcessPool kwargs
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method:
+            if isinstance(method, int):
+                value = method
+            else:
+                value = method.value
+        else:
+            if isinstance(IOintensive.Preferred, int):
+                value = IOintensive.Preferred
+            else:
+                value = IOintensive.Preferred.value
+        if value &lt; 20:
+            return Asyncio(self.func, *self.args, kwargs = self.kwargs).run(value - 10)
+        elif value &lt; 30:
+            return ThreadMap(self.func, *self.args, kwargs = self.kwargs).run(value - 20)
+        elif value &lt; 40:
+            return ThreadPool(self.func, *self.args, kwargs = self.kwargs).run(value - 30)
+        elif value &lt; 50:
+            return Gevent(self.func, *self.args, kwargs = self.kwargs).run(value - 40)
+        else:
+            raise TypeError(
+                f&#34;IOintensive.Preferred({Calculation.Preferred}) or IOintensive.run.method({method}) not in Enum RunIOintensive!&#34;)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.IOintensive.Preferred"><code class="name">var <span class="ident">Preferred</span></code></dt>
+<dd>
+<div class="desc"><p><code><a title="lupro_scheduler.Scheduler.IOintensive" href="#lupro_scheduler.Scheduler.IOintensive">IOintensive</a></code> default <code>method</code></p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.IOintensive.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, method: Union[int, lupro_scheduler.RunIOintensive] = None, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>运行 <code><a title="lupro_scheduler.Scheduler.IOintensive" href="#lupro_scheduler.Scheduler.IOintensive">IOintensive</a></code> IO型密集型实例</p>
+<h2 id="args">Args</h2>
+<p><code>method</code> : <code>Union[int, RunIOintensive]</code> 执行方法
+<code>args</code> : <code>tuple</code> ProcessPool args
+<code>kwargs</code> : <code>dict</code> ProcessPool kwargs</p>
+<h2 id="returns">Returns</h2>
+<p><code>List</code> : 任务返回值列表</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self, method : Union[int, RunIOintensive] = None, *args, **kwargs):
+    &#39;&#39;&#39; 运行 `IOintensive` IO型密集型实例
+
+    Args:
+        `method` : `Union[int, RunIOintensive]` 执行方法
+        `args` : `tuple` ProcessPool args
+        `kwargs` : `dict` ProcessPool kwargs
+    
+    Returns:
+        `List` : 任务返回值列表
+    &#39;&#39;&#39;
+    if method:
+        if isinstance(method, int):
+            value = method
+        else:
+            value = method.value
+    else:
+        if isinstance(IOintensive.Preferred, int):
+            value = IOintensive.Preferred
+        else:
+            value = IOintensive.Preferred.value
+    if value &lt; 20:
+        return Asyncio(self.func, *self.args, kwargs = self.kwargs).run(value - 10)
+    elif value &lt; 30:
+        return ThreadMap(self.func, *self.args, kwargs = self.kwargs).run(value - 20)
+    elif value &lt; 40:
+        return ThreadPool(self.func, *self.args, kwargs = self.kwargs).run(value - 30)
+    elif value &lt; 50:
+        return Gevent(self.func, *self.args, kwargs = self.kwargs).run(value - 40)
+    else:
+        raise TypeError(
+            f&#34;IOintensive.Preferred({Calculation.Preferred}) or IOintensive.run.method({method}) not in Enum RunIOintensive!&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler"><code class="flex name class">
+<span>class <span class="ident">Scheduler</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>调度器</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Scheduler():
+    &#39;&#39;&#39;调度器 &#39;&#39;&#39;
+    
+    Calculation = Calculation
+
+    IOintensive = IOintensive
+
+    def __init__(self):
+        self.tasks = []     # 任务链
+        self.sequence = 0   # 任务链长度
+        self.length = 0     # 任务数
+        self.lock = []      # 通讯锁
+        self.medium = []    # 通讯链路
+        self.waits = []     # 中继器线程
+        self.results = []   # 任务链结果
+    
+    def addIO(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunIOintensive] = None):
+        &#39;&#39;&#39; 添加 `IOintensive` 型任务
+
+        Args:
+            `func` : Union[list, Callable] 任务函数
+            `args` : `tuple` 任务位置参数
+            `kwargs` : `dict` 任务关键字参数
+            `method` : `Union[int, RunIOintensive]` 执行方法 可重载IOintensive.Preferred的 `method`
+        
+        Returns:
+            None 
+        &#39;&#39;&#39;
+        if method == None:
+            method = IOintensive.Preferred
+        else:
+            if not taskmethodput(method)==&#39;IOintensive&#39;:
+                raise TypeError(
+                    f&#34;Task.method({method}) not in Enum RunIOintensive!&#34;)
+        if self.tasks:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        else:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+            self.length = tasksequence(func, args, kwargs)
+
+    def addCal(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunCalculation] = None):
+        &#39;&#39;&#39; 添加 `Calculation` 型任务
+
+        Args:
+            `func` : Union[list, Callable] 任务函数
+            `args` : `tuple` 任务位置参数
+            `kwargs` : `dict` 任务关键字参数
+            `method` : `Union[int, RunTask]` 执行方法 可重载Calculation.Preferred的 `method`
+        
+        Returns:
+            None 
+        &#39;&#39;&#39;
+        if method == None:
+            method = Calculation.Preferred
+        else:
+            if not taskmethodput(method)==&#39;Calculation&#39;:
+                raise TypeError(
+                    f&#34;Task.method({method}) not in Enum RunCalculation!&#34;)
+        if self.tasks:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        else:
+            self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+            self.length = tasksequence(func, args, kwargs)
+    
+    def run(self, join : bool = True):
+        &#39;&#39;&#39; 运行 `Scheduler` 实例
+
+        Args:
+            `join` : bool 是否等待调度，当有 `Calculation` 任务时不可不等待
+        
+        Returns:
+            List : 返回有序的调度任务结果
+        &#39;&#39;&#39;
+        if self.tasks:
+            self.sequence = len(self.tasks)
+            self.lock = Lock.get_lock(self.tasks, join)
+            self.medium = [{} for _ in range(self.sequence)]
+
+            # 序列参数添加 与 通讯装饰器增加
+            for i,j in enumerate(self.tasks):
+                if isinstance(j.func, list):
+                    if asyncio.iscoroutinefunction(j.func[0]):
+                        j.func = [asyncbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                    else:
+                        if j.runm == &#39;Calculation&#39;:
+                            j.func = [Processbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                        else:
+                            j.func = [broadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                else:
+                    if asyncio.iscoroutinefunction(j.func):
+                        j.func = asyncbroadcast(j.func, self.lock[i], self.medium[i])
+                    else:
+                        if j.runm == &#39;Calculation&#39;:
+                            j.func = Processbroadcast(j.func, self.lock[i], self.medium[i])
+                        else:
+                            j.func = broadcast(j.func, self.lock[i], self.medium[i])
+                if i==0:
+                    j.args = tuple([list(range(self.length))] + list(j.args))
+
+            # 初始任务
+            for i,j in enumerate(self.tasks):
+                if i==0:
+                    task0 = getattr(Scheduler, j.runm)(j.func, *j.args,kwargs = j.kwargs)
+                    self.threads(task0.run, j.method)
+                if i &lt; self.sequence - 1:
+                    if self.tasks[i].runm == &#39;Calculation&#39;:
+                        self.waits.append(self.threads(self.CalRepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+                    else:
+                        self.waits.append(self.threads(self.IORepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+                else:
+                    self.waits.append(self.threads(self.Interrupt, j, self.length, self.lock[i], self.medium[i]))
+
+        else:
+            raise TypeError(&#34;Scheduler tasks is null!&#34;)
+        if join:
+            self.wait()
+            for i in self.medium:
+                self.results.append(list(map(lambda x:x[1], sorted(i.items(), key=lambda x:x[0]))))
+            return self.results
+    
+    def IORepeater(self, task, l, lock, medium):
+        &#39;&#39;&#39;线程 中继器&#39;&#39;&#39;
+        i = 0
+        while i&lt;l:
+            with lock:
+                a = len(medium)
+                if a &gt; i:
+                    res = dict_slice(medium, i, a)
+                    i = a
+                    task.args = (list(res.keys()), list(res.values()))
+                    task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                    self.threads(task0.run, task.method)
+            time.sleep(0.1)
+
+    def CalRepeater(self, task, l, lock, medium):
+        &#39;&#39;&#39;进程 中继器&#39;&#39;&#39;
+        i = 0
+        while i&lt;l:
+            while True:
+                try:
+                    medium.update(lock.get(timeout = 0.1))
+                except Empty:
+                    a = len(medium)
+                    if a &gt; i:
+                        res = dict_slice(medium, i, a)
+                        i = a
+                        task.args = (list(res.keys()), list(res.values()))
+                        task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                        self.threads(task0.run, task.method)
+                break
+            time.sleep(0.1)
+
+    def Interrupt(self, task, l, lock, medium):
+        &#39;&#39;&#39;Scheduler 调度完结监听器&#39;&#39;&#39;
+        if task.runm == &#39;Calculation&#39;:
+            i = 0
+            while i&lt;l:
+                while True:
+                    try:
+                        medium.update(lock.get(timeout = 0.1))
+                    except Empty:
+                        a = len(medium)
+                        if a &gt; i:
+                            i = a
+                    break
+                time.sleep(0.1)
+        else:
+            i = 0
+            while i&lt;l:
+                with lock:
+                    a = len(medium)
+                    if a &gt; i:
+                        i = a
+                time.sleep(0.1)
+
+    def wait(self):
+        for i in self.waits:
+            i.join()
+
+    @staticmethod
+    def threads(func, *args, **kwargs):
+        &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+        task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+        task.start()
+        return task</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Scheduler.Calculation"><code class="name">var <span class="ident">Calculation</span></code></dt>
+<dd>
+<div class="desc"><p>计算密集型</p></div>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.IOintensive"><code class="name">var <span class="ident">IOintensive</span></code></dt>
+<dd>
+<div class="desc"><p>IO密集型</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Scheduler.threads"><code class="name flex">
+<span>def <span class="ident">threads</span></span>(<span>func, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>异步任务队列</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def threads(func, *args, **kwargs):
+    &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+    task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+    task.start()
+    return task</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Scheduler.CalRepeater"><code class="name flex">
+<span>def <span class="ident">CalRepeater</span></span>(<span>self, task, l, lock, medium)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>进程 中继器</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def CalRepeater(self, task, l, lock, medium):
+    &#39;&#39;&#39;进程 中继器&#39;&#39;&#39;
+    i = 0
+    while i&lt;l:
+        while True:
+            try:
+                medium.update(lock.get(timeout = 0.1))
+            except Empty:
+                a = len(medium)
+                if a &gt; i:
+                    res = dict_slice(medium, i, a)
+                    i = a
+                    task.args = (list(res.keys()), list(res.values()))
+                    task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                    self.threads(task0.run, task.method)
+            break
+        time.sleep(0.1)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.IORepeater"><code class="name flex">
+<span>def <span class="ident">IORepeater</span></span>(<span>self, task, l, lock, medium)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>线程 中继器</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def IORepeater(self, task, l, lock, medium):
+    &#39;&#39;&#39;线程 中继器&#39;&#39;&#39;
+    i = 0
+    while i&lt;l:
+        with lock:
+            a = len(medium)
+            if a &gt; i:
+                res = dict_slice(medium, i, a)
+                i = a
+                task.args = (list(res.keys()), list(res.values()))
+                task0 = getattr(Scheduler, task.runm)(task.func, *task.args)
+                self.threads(task0.run, task.method)
+        time.sleep(0.1)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.Interrupt"><code class="name flex">
+<span>def <span class="ident">Interrupt</span></span>(<span>self, task, l, lock, medium)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Scheduler 调度完结监听器</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Interrupt(self, task, l, lock, medium):
+    &#39;&#39;&#39;Scheduler 调度完结监听器&#39;&#39;&#39;
+    if task.runm == &#39;Calculation&#39;:
+        i = 0
+        while i&lt;l:
+            while True:
+                try:
+                    medium.update(lock.get(timeout = 0.1))
+                except Empty:
+                    a = len(medium)
+                    if a &gt; i:
+                        i = a
+                break
+            time.sleep(0.1)
+    else:
+        i = 0
+        while i&lt;l:
+            with lock:
+                a = len(medium)
+                if a &gt; i:
+                    i = a
+            time.sleep(0.1)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.addCal"><code class="name flex">
+<span>def <span class="ident">addCal</span></span>(<span>self, func: Union[list, Callable], *args, kwargs=[], method: Union[int, lupro_scheduler.RunCalculation] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>添加 <code><a title="lupro_scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Calculation">Calculation</a></code> 型任务</p>
+<h2 id="args">Args</h2>
+<p><code>func</code> : Union[list, Callable] 任务函数
+<code>args</code> : <code>tuple</code> 任务位置参数
+<code>kwargs</code> : <code>dict</code> 任务关键字参数
+<code>method</code> : <code>Union[int, RunTask]</code> 执行方法 可重载Calculation.Preferred的 <code>method</code></p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def addCal(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunCalculation] = None):
+    &#39;&#39;&#39; 添加 `Calculation` 型任务
+
+    Args:
+        `func` : Union[list, Callable] 任务函数
+        `args` : `tuple` 任务位置参数
+        `kwargs` : `dict` 任务关键字参数
+        `method` : `Union[int, RunTask]` 执行方法 可重载Calculation.Preferred的 `method`
+    
+    Returns:
+        None 
+    &#39;&#39;&#39;
+    if method == None:
+        method = Calculation.Preferred
+    else:
+        if not taskmethodput(method)==&#39;Calculation&#39;:
+            raise TypeError(
+                f&#34;Task.method({method}) not in Enum RunCalculation!&#34;)
+    if self.tasks:
+        self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+    else:
+        self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        self.length = tasksequence(func, args, kwargs)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.addIO"><code class="name flex">
+<span>def <span class="ident">addIO</span></span>(<span>self, func: Union[list, Callable], *args, kwargs=[], method: Union[int, lupro_scheduler.RunIOintensive] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>添加 <code><a title="lupro_scheduler.Scheduler.IOintensive" href="#lupro_scheduler.Scheduler.IOintensive">IOintensive</a></code> 型任务</p>
+<h2 id="args">Args</h2>
+<p><code>func</code> : Union[list, Callable] 任务函数
+<code>args</code> : <code>tuple</code> 任务位置参数
+<code>kwargs</code> : <code>dict</code> 任务关键字参数
+<code>method</code> : <code>Union[int, RunIOintensive]</code> 执行方法 可重载IOintensive.Preferred的 <code>method</code></p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def addIO(self, func: Union[list, Callable], *args, kwargs = [], method : Union[int, RunIOintensive] = None):
+    &#39;&#39;&#39; 添加 `IOintensive` 型任务
+
+    Args:
+        `func` : Union[list, Callable] 任务函数
+        `args` : `tuple` 任务位置参数
+        `kwargs` : `dict` 任务关键字参数
+        `method` : `Union[int, RunIOintensive]` 执行方法 可重载IOintensive.Preferred的 `method`
+    
+    Returns:
+        None 
+    &#39;&#39;&#39;
+    if method == None:
+        method = IOintensive.Preferred
+    else:
+        if not taskmethodput(method)==&#39;IOintensive&#39;:
+            raise TypeError(
+                f&#34;Task.method({method}) not in Enum RunIOintensive!&#34;)
+    if self.tasks:
+        self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+    else:
+        self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
+        self.length = tasksequence(func, args, kwargs)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, join: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>运行 <code><a title="lupro_scheduler.Scheduler.Scheduler" href="#lupro_scheduler.Scheduler.Scheduler">Scheduler</a></code> 实例</p>
+<h2 id="args">Args</h2>
+<p><code>join</code> : bool 是否等待调度，当有 <code><a title="lupro_scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Calculation">Calculation</a></code> 任务时不可不等待</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List </code></dt>
+<dd>返回有序的调度任务结果</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self, join : bool = True):
+    &#39;&#39;&#39; 运行 `Scheduler` 实例
+
+    Args:
+        `join` : bool 是否等待调度，当有 `Calculation` 任务时不可不等待
+    
+    Returns:
+        List : 返回有序的调度任务结果
+    &#39;&#39;&#39;
+    if self.tasks:
+        self.sequence = len(self.tasks)
+        self.lock = Lock.get_lock(self.tasks, join)
+        self.medium = [{} for _ in range(self.sequence)]
+
+        # 序列参数添加 与 通讯装饰器增加
+        for i,j in enumerate(self.tasks):
+            if isinstance(j.func, list):
+                if asyncio.iscoroutinefunction(j.func[0]):
+                    j.func = [asyncbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                else:
+                    if j.runm == &#39;Calculation&#39;:
+                        j.func = [Processbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+                    else:
+                        j.func = [broadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+            else:
+                if asyncio.iscoroutinefunction(j.func):
+                    j.func = asyncbroadcast(j.func, self.lock[i], self.medium[i])
+                else:
+                    if j.runm == &#39;Calculation&#39;:
+                        j.func = Processbroadcast(j.func, self.lock[i], self.medium[i])
+                    else:
+                        j.func = broadcast(j.func, self.lock[i], self.medium[i])
+            if i==0:
+                j.args = tuple([list(range(self.length))] + list(j.args))
+
+        # 初始任务
+        for i,j in enumerate(self.tasks):
+            if i==0:
+                task0 = getattr(Scheduler, j.runm)(j.func, *j.args,kwargs = j.kwargs)
+                self.threads(task0.run, j.method)
+            if i &lt; self.sequence - 1:
+                if self.tasks[i].runm == &#39;Calculation&#39;:
+                    self.waits.append(self.threads(self.CalRepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+                else:
+                    self.waits.append(self.threads(self.IORepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+            else:
+                self.waits.append(self.threads(self.Interrupt, j, self.length, self.lock[i], self.medium[i]))
+
+    else:
+        raise TypeError(&#34;Scheduler tasks is null!&#34;)
+    if join:
+        self.wait()
+        for i in self.medium:
+            self.results.append(list(map(lambda x:x[1], sorted(i.items(), key=lambda x:x[0]))))
+        return self.results</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Scheduler.wait"><code class="name flex">
+<span>def <span class="ident">wait</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wait(self):
+    for i in self.waits:
+        i.join()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Task"><code class="flex name class">
+<span>class <span class="ident">Task</span></span>
+<span>(</span><span>func: Union[list, Callable], *args, kwargs=[], method: Union[int, lupro_scheduler.RunTask] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Task:
+
+    Calculation = Calculation
+
+    IOintensive = IOintensive
+
+    def __init__(self, func: Union[list, Callable], *args, kwargs=[], method : Union[int, RunTask] = None):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+        self.runm = taskmethodput(method)
+        self.method = method
+    
+    def run(self, method : Union[int, RunTask] = None):
+        &#39;&#39;&#39; 运行 `Task` 任务实例
+
+        Args:
+            `method` : `Union[int, RunTask]` 执行方法 可重载实例化时的 `method`
+        
+        Returns:
+            `List` : 任务返回值列表
+        &#39;&#39;&#39;
+        if method == None:
+            method = self.method
+            if method == None:
+                raise TypeError(f&#39;Task({self}) method is None&#39;)
+            task = getattr(Task, self.runm)(self.func,*self.args, kwargs = self.kwargs)
+        else:
+            task = getattr(Task, taskmethodput(method))(self.func,*self.args, kwargs = self.kwargs)
+
+        return task.run(method)
+
+    @staticmethod
+    def threads(func, *args, **kwargs):
+        &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+        task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+        task.start()
+        return task
+
+    def length(self):
+        return tasksequence(self.func, self.args, self.kwargs)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Task.Calculation"><code class="name">var <span class="ident">Calculation</span></code></dt>
+<dd>
+<div class="desc"><p>计算密集型</p></div>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Task.IOintensive"><code class="name">var <span class="ident">IOintensive</span></code></dt>
+<dd>
+<div class="desc"><p>IO密集型</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Task.threads"><code class="name flex">
+<span>def <span class="ident">threads</span></span>(<span>func, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>异步任务队列</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def threads(func, *args, **kwargs):
+    &#39;&#39;&#39;异步任务队列&#39;&#39;&#39;
+    task = Thread(target = func, args = (*args, ), kwargs = kwargs)
+    task.start()
+    return task</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lupro_scheduler.Scheduler.Task.length"><code class="name flex">
+<span>def <span class="ident">length</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def length(self):
+    return tasksequence(self.func, self.args, self.kwargs)</code></pre>
+</details>
+</dd>
+<dt id="lupro_scheduler.Scheduler.Task.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, method: Union[int, lupro_scheduler.RunTask] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>运行 <code><a title="lupro_scheduler.Scheduler.Task" href="#lupro_scheduler.Scheduler.Task">Task</a></code> 任务实例</p>
+<h2 id="args">Args</h2>
+<p><code>method</code> : <code>Union[int, RunTask]</code> 执行方法 可重载实例化时的 <code>method</code></p>
+<h2 id="returns">Returns</h2>
+<p><code>List</code> : 任务返回值列表</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self, method : Union[int, RunTask] = None):
+    &#39;&#39;&#39; 运行 `Task` 任务实例
+
+    Args:
+        `method` : `Union[int, RunTask]` 执行方法 可重载实例化时的 `method`
+    
+    Returns:
+        `List` : 任务返回值列表
+    &#39;&#39;&#39;
+    if method == None:
+        method = self.method
+        if method == None:
+            raise TypeError(f&#39;Task({self}) method is None&#39;)
+        task = getattr(Task, self.runm)(self.func,*self.args, kwargs = self.kwargs)
+    else:
+        task = getattr(Task, taskmethodput(method))(self.func,*self.args, kwargs = self.kwargs)
+
+    return task.run(method)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="lupro_scheduler" href="index.html">lupro_scheduler</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="lupro_scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Calculation">Calculation</a></code></h4>
+<ul class="">
+<li><code><a title="lupro_scheduler.Scheduler.Calculation.Preferred" href="#lupro_scheduler.Scheduler.Calculation.Preferred">Preferred</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Calculation.run" href="#lupro_scheduler.Scheduler.Calculation.run">run</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lupro_scheduler.Scheduler.IOintensive" href="#lupro_scheduler.Scheduler.IOintensive">IOintensive</a></code></h4>
+<ul class="">
+<li><code><a title="lupro_scheduler.Scheduler.IOintensive.Preferred" href="#lupro_scheduler.Scheduler.IOintensive.Preferred">Preferred</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.IOintensive.run" href="#lupro_scheduler.Scheduler.IOintensive.run">run</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lupro_scheduler.Scheduler.Scheduler" href="#lupro_scheduler.Scheduler.Scheduler">Scheduler</a></code></h4>
+<ul class="two-column">
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.CalRepeater" href="#lupro_scheduler.Scheduler.Scheduler.CalRepeater">CalRepeater</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.Calculation" href="#lupro_scheduler.Scheduler.Scheduler.Calculation">Calculation</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.IORepeater" href="#lupro_scheduler.Scheduler.Scheduler.IORepeater">IORepeater</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.IOintensive" href="#lupro_scheduler.Scheduler.Scheduler.IOintensive">IOintensive</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.Interrupt" href="#lupro_scheduler.Scheduler.Scheduler.Interrupt">Interrupt</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.addCal" href="#lupro_scheduler.Scheduler.Scheduler.addCal">addCal</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.addIO" href="#lupro_scheduler.Scheduler.Scheduler.addIO">addIO</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.run" href="#lupro_scheduler.Scheduler.Scheduler.run">run</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.threads" href="#lupro_scheduler.Scheduler.Scheduler.threads">threads</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Scheduler.wait" href="#lupro_scheduler.Scheduler.Scheduler.wait">wait</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lupro_scheduler.Scheduler.Task" href="#lupro_scheduler.Scheduler.Task">Task</a></code></h4>
+<ul class="">
+<li><code><a title="lupro_scheduler.Scheduler.Task.Calculation" href="#lupro_scheduler.Scheduler.Task.Calculation">Calculation</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Task.IOintensive" href="#lupro_scheduler.Scheduler.Task.IOintensive">IOintensive</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Task.length" href="#lupro_scheduler.Scheduler.Task.length">length</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Task.run" href="#lupro_scheduler.Scheduler.Task.run">run</a></code></li>
+<li><code><a title="lupro_scheduler.Scheduler.Task.threads" href="#lupro_scheduler.Scheduler.Task.threads">threads</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
