@@ -1,0 +1,8 @@
+__title__ = 'lupro_scheduler'
+__description__ = 'Lupro Scheduler is a synchronous task chain scheduler support sweeper, multi-thread, multi-process synchronous communication.'
+__url__ = 'https://github.com/luxuncang/lupro'
+__version__ = '1.0.0'
+__author__ = 'ShengXin Lu'
+__author_email__ = 'luxuncang@qq.com'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 2021 ShengXin Lu'
