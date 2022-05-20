@@ -13,10 +13,7 @@ class Thread(threading.Thread):
         super(Thread, self).__init__(*args, **kwargs)
         self.target = kwargs['target']
         self.args = kwargs['args']
-        if kwargs.get('kwargs'):
-            self.kwargs = kwargs['kwargs']
-        else:
-            self.kwargs = {}
+        self.kwargs = kwargs['kwargs'] if kwargs.get('kwargs') else {}
 
     def run(self):
         try:
@@ -81,13 +78,12 @@ class ThreadMap():
         return [i.result() for i in self.task]
 
     def run(self, method = 0, join = True):
-        if method == 0:
-            self.start()
-            if join:
-                self.join()
-        else:
+        if method != 0:
             raise TypeError(
                 f"ThreadMap.run.method({method}) not in Enum RunThreadMap!")
+        self.start()
+        if join:
+            self.join()
         return self.result()
 
 # 线程池

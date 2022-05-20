@@ -17,11 +17,11 @@ class SeparateArgs():
 class inherit(type):
     '''类泛属性'''
 
-    def __getattr__(cls, name):
-        if not '__general__' in dir(cls):
+    def __getattr__(self, name):
+        if '__general__' not in dir(self):
             raise NameError("name '__general__' is not defined")
-        if hasattr(cls.__general__, name):
-            return getattr(cls.__general__, name)
+        if hasattr(self.__general__, name):
+            return getattr(self.__general__, name)
         return getattr(object.__getattr__, name)
 
 # 调用类对象属性
@@ -64,12 +64,11 @@ def init_task(self, func, args, kwargs):
         d['kwargs'] = kwargs
         if not self.l:
             self.l = len(d['kwargs'])
-    if self.l:
-        for i in d:
-            if not d[i]:
-                d[i] = [d[i]] *self.l
-    else:
+    if not self.l:
         raise TypeError(f"{type(self).__name__}() missing 1 required positional argument: 'iterable' or 'func[callable]'")
+    for i in d:
+        if not d[i]:
+            d[i] = [d[i]] *self.l
     self.d = d
     self.func = func
     self.task = []
@@ -79,10 +78,7 @@ def init_task(self, func, args, kwargs):
 def dict_slice(adict, start, end):
     '''切片字典'''
     keys = adict.keys()
-    dict_slice = {}
-    for k in list(keys)[start:end]:
-        dict_slice[k] = adict[k]
-    return dict_slice
+    return {k: adict[k] for k in list(keys)[start:end]}
 
 # Task 方法判断
 def taskmethodput(method : Union[int, RunTask]):
@@ -95,10 +91,7 @@ def taskmethodput(method : Union[int, RunTask]):
         raise TypeError(
                 f"Task.method({method}) not in Enum RunTask!")
     if value in RUNTASK:
-        if value < 10:
-            return 'Calculation'
-        else:
-            return 'IOintensive'
+        return 'Calculation' if value < 10 else 'IOintensive'
     else:
         raise TypeError(
                 f"Task.method({method}) not in Enum RunTask!")

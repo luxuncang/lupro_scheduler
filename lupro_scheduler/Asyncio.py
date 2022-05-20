@@ -10,9 +10,9 @@ class Gevent():
         init_task(self, func = func, args = args, kwargs = kwargs)
 
     def run(self, method : Union[RunGevent, int], *args, **kwargs):
-        if method == RunGevent.GEVENT or method == RunGevent.GEVENT.value:
+        if method in [RunGevent.GEVENT, RunGevent.GEVENT.value]:
             return self.gevent()
-        elif method == RunAsync.GATHER or method == RunAsync.GATHER.value:
+        elif method in [RunAsync.GATHER, RunAsync.GATHER.value]:
             return self.map(*args, **kwargs)
         else:
             raise TypeError(
@@ -50,13 +50,13 @@ class Asyncio():
 
     def run(self, method : Union[RunAsync, int]):
         '''Asyncio run method'''
-        if method == RunAsync.CREATETASK or method == RunAsync.CREATETASK.value:
+        if method in [RunAsync.CREATETASK, RunAsync.CREATETASK.value]:
             return asyncio.run(self.create_task())
-        elif method == RunAsync.GATHER or method == RunAsync.GATHER.value:
+        elif method in [RunAsync.GATHER, RunAsync.GATHER.value]:
             return asyncio.run(self.gather())
-        elif method == RunAsync.ASCOMPLETED or method == RunAsync.ASCOMPLETED.value:
+        elif method in [RunAsync.ASCOMPLETED, RunAsync.ASCOMPLETED.value]:
             return asyncio.run(self.as_completed())
-        elif method == RunAsync.RUNFOREVER or method == RunAsync.RUNFOREVER.value:
+        elif method in [RunAsync.RUNFOREVER, RunAsync.RUNFOREVER.value]:
             return asyncio.run(self.get_event_loop())
         else:
             raise TypeError(

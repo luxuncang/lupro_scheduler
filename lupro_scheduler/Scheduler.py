@@ -32,24 +32,20 @@ class Calculation(ProcessPool):
             `List` : 任务返回值列表
         '''
         if method:
-            if isinstance(method, int):
-                value = method
-            else:
-                value = method.value
+            value = method if isinstance(method, int) else method.value
+        elif isinstance(Calculation.Preferred, int):
+            value = Calculation.Preferred
         else:
-            if isinstance(Calculation.Preferred, int):
-                value = Calculation.Preferred
-            else:
-                value = Calculation.Preferred.value
-        if value == 0 or value == RunCalculation.APPLY:
+            value = Calculation.Preferred.value
+        if value in [0, RunCalculation.APPLY]:
             return self.apply(*args, **kwargs)
-        elif value == 1 or value == RunCalculation.APPLYASYNC:
+        elif value in [1, RunCalculation.APPLYASYNC]:
             return self.apply_async(*args, **kwargs)
-        elif value == 2 or value == RunCalculation.MAP:
+        elif value in [2, RunCalculation.MAP]:
             return self.map(*args, **kwargs)
-        elif value == 3 or value == RunCalculation.MAPASYNC:
+        elif value in [3, RunCalculation.MAPASYNC]:
             return self.map_async(*args, **kwargs)
-        elif value == 4 or value == RunCalculation.EXECUTOR:
+        elif value in [4, RunCalculation.EXECUTOR]:
             return self.Executor(*args, **kwargs)
         else:
             raise TypeError(
@@ -79,15 +75,11 @@ class IOintensive():
             `List` : 任务返回值列表
         '''
         if method:
-            if isinstance(method, int):
-                value = method
-            else:
-                value = method.value
+            value = method if isinstance(method, int) else method.value
+        elif isinstance(IOintensive.Preferred, int):
+            value = IOintensive.Preferred
         else:
-            if isinstance(IOintensive.Preferred, int):
-                value = IOintensive.Preferred
-            else:
-                value = IOintensive.Preferred.value
+            value = IOintensive.Preferred.value
         if value < 20:
             return Asyncio(self.func, *self.args, kwargs = self.kwargs).run(value - 10)
         elif value < 30:
@@ -123,9 +115,9 @@ class Task:
         Returns:
             `List` : 任务返回值列表
         '''
-        if method == None:
+        if method is None:
             method = self.method
-            if method == None:
+            if method is None:
                 raise TypeError(f'Task({self}) method is None')
             task = getattr(Task, self.runm)(self.func,*self.args, kwargs = self.kwargs)
         else:
@@ -172,12 +164,11 @@ class Scheduler():
         Returns:
             None 
         '''
-        if method == None:
+        if method is None:
             method = IOintensive.Preferred
-        else:
-            if not taskmethodput(method)=='IOintensive':
-                raise TypeError(
-                    f"Task.method({method}) not in Enum RunIOintensive!")
+        elif taskmethodput(method) != 'IOintensive':
+            raise TypeError(
+                f"Task.method({method}) not in Enum RunIOintensive!")
         if self.tasks:
             self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
         else:
@@ -196,12 +187,11 @@ class Scheduler():
         Returns:
             None 
         '''
-        if method == None:
+        if method is None:
             method = Calculation.Preferred
-        else:
-            if not taskmethodput(method)=='Calculation':
-                raise TypeError(
-                    f"Task.method({method}) not in Enum RunCalculation!")
+        elif taskmethodput(method) != 'Calculation':
+            raise TypeError(
+                f"Task.method({method}) not in Enum RunCalculation!")
         if self.tasks:
             self.tasks.append(Task(func, *args, kwargs = kwargs, method = method))
         else:
@@ -217,47 +207,57 @@ class Scheduler():
         Returns:
             List : 返回有序的调度任务结果
         '''
-        if self.tasks:
-            self.sequence = len(self.tasks)
-            self.lock = Lock.get_lock(self.tasks, join)
-            self.medium = [{} for _ in range(self.sequence)]
+        if not self.tasks:
+            raise TypeError("Scheduler tasks is null!")
+        self.sequence = len(self.tasks)
+        self.lock = Lock.get_lock(self.tasks, join)
+        self.medium = [{} for _ in range(self.sequence)]
 
             # 序列参数添加 与 通讯装饰器增加
-            for i,j in enumerate(self.tasks):
-                if isinstance(j.func, list):
-                    if asyncio.iscoroutinefunction(j.func[0]):
-                        j.func = [asyncbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
-                    else:
-                        if j.runm == 'Calculation':
-                            j.func = [Processbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
-                        else:
-                            j.func = [broadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
+        for i,j in enumerate(self.tasks):
+            if isinstance(j.func, list):
+                if asyncio.iscoroutinefunction(j.func[0]):
+                    j.func = [asyncbroadcast(j.func[z], self.lock[i], self.medium[i]) for z in range(self.length)]
                 else:
-                    if asyncio.iscoroutinefunction(j.func):
-                        j.func = asyncbroadcast(j.func, self.lock[i], self.medium[i])
-                    else:
-                        if j.runm == 'Calculation':
-                            j.func = Processbroadcast(j.func, self.lock[i], self.medium[i])
-                        else:
-                            j.func = broadcast(j.func, self.lock[i], self.medium[i])
-                if i==0:
-                    j.args = tuple([list(range(self.length))] + list(j.args))
+                    j.func = (
+                        [
+                            Processbroadcast(
+                                j.func[z], self.lock[i], self.medium[i]
+                            )
+                            for z in range(self.length)
+                        ]
+                        if j.runm == 'Calculation'
+                        else [
+                            broadcast(j.func[z], self.lock[i], self.medium[i])
+                            for z in range(self.length)
+                        ]
+                    )
 
-            # 初始任务
-            for i,j in enumerate(self.tasks):
-                if i==0:
-                    task0 = getattr(Scheduler, j.runm)(j.func, *j.args,kwargs = j.kwargs)
-                    self.threads(task0.run, j.method)
-                if i < self.sequence - 1:
-                    if self.tasks[i].runm == 'Calculation':
-                        self.waits.append(self.threads(self.CalRepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
-                    else:
-                        self.waits.append(self.threads(self.IORepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+            elif asyncio.iscoroutinefunction(j.func):
+                j.func = asyncbroadcast(j.func, self.lock[i], self.medium[i])
+            else:
+                j.func = (
+                    Processbroadcast(j.func, self.lock[i], self.medium[i])
+                    if j.runm == 'Calculation'
+                    else broadcast(j.func, self.lock[i], self.medium[i])
+                )
+
+            if i==0:
+                j.args = tuple([list(range(self.length))] + list(j.args))
+
+        # 初始任务
+        for i,j in enumerate(self.tasks):
+            if i==0:
+                task0 = getattr(Scheduler, j.runm)(j.func, *j.args,kwargs = j.kwargs)
+                self.threads(task0.run, j.method)
+            if i < self.sequence - 1:
+                if self.tasks[i].runm == 'Calculation':
+                    self.waits.append(self.threads(self.CalRepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
                 else:
-                    self.waits.append(self.threads(self.Interrupt, j, self.length, self.lock[i], self.medium[i]))
+                    self.waits.append(self.threads(self.IORepeater, self.tasks[i+1], self.length, self.lock[i], self.medium[i]))
+            else:
+                self.waits.append(self.threads(self.Interrupt, j, self.length, self.lock[i], self.medium[i]))
 
-        else:
-            raise TypeError("Scheduler tasks is null!")
         if join:
             self.wait()
             for i in self.medium:
@@ -298,8 +298,8 @@ class Scheduler():
 
     def Interrupt(self, task, l, lock, medium):
         '''Scheduler 调度完结监听器'''
+        i = 0
         if task.runm == 'Calculation':
-            i = 0
             while i<l:
                 while True:
                     try:
@@ -311,7 +311,6 @@ class Scheduler():
                     break
                 time.sleep(0.1)
         else:
-            i = 0
             while i<l:
                 with lock:
                     a = len(medium)
